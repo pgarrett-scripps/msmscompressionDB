@@ -1,4 +1,5 @@
 import hashlib
+import os
 
 import aiosqlite
 from fastapi import FastAPI, HTTPException
@@ -21,9 +22,9 @@ class CompressedData(BaseModel):
 compressor = SpectrumCompressorB85
 compressor_url = SpectrumCompressorUrl
 
-# Database setup
-DB_FILE = "spectra.db"
 
+# Database setup
+DB_FILE = os.getenv("DB_FILE_PATH", "spectra.db")
 
 async def init_db():
     async with aiosqlite.connect(DB_FILE) as db:
