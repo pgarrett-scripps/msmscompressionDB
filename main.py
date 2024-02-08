@@ -7,8 +7,18 @@ from pydantic import BaseModel
 from typing import List
 from msms_compression import SpectrumCompressorB85, SpectrumCompressorUrl
 
+
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://ip2.scripps.edu"],  # Adjust as necessary
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class SpectrumData(BaseModel):
     mzs: List[float]
